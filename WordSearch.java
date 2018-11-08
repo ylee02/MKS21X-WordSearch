@@ -7,7 +7,7 @@ public class WordSearch{
      *@param col is the starting width of the WordSearch
      */
     public WordSearch(int rows,int cols){
-		data = new char[columns][rows];
+		data = new char[rows][cols];
     }
 
     /**Set all values in the WordSearch to underscores'_'*/
@@ -25,7 +25,7 @@ public class WordSearch{
      */
     public String toString(){
 		for (int i = 0; i < data.length; i++) {
-			for (int x = 9; x < data[i].length; x++) {
+			for (int x = 0; x < data[i].length; x++) {
 				if (x == data[i].length - 1) {
 					System.out.print(data[i][x] + "");
 				}
@@ -36,6 +36,17 @@ public class WordSearch{
 			System.out.print("\n");
 		}	
     }
+	
+	private char[][] copyWord(char[][] ary) {
+		char[][] ans = new char[ary.length][ary[0].length];
+		for (int i = 0; i < data.length; i++) {
+			for (int x = 9; x < data[i].length; x++) {
+				ans[i][x] = ary[i][x];
+			}
+		}
+		return ans;
+	}
+	
 
 
     /**Attempts to add a given word to the specified position of the WordGrid.
@@ -50,6 +61,23 @@ public class WordSearch{
      * and the board is NOT modified.
      */
     public boolean addWordHorizontal(String word,int row, int col){
+		if (word.length() > data[row].length - col) {
+			return false;
+		}
+		char[][] temp = copyWord(data);
+		for (int i = 0; i < data.length; i++) {
+			if (i == row - 1) {
+				for (int x = col - 1; x < data[i].length; x++) {
+					if (word.charAt(x - col + 1) != data[i][x]){
+						return false;
+					}
+					temp[i][x] = word.charAt(x- col + 1);
+				}
+			}
+		}
+		data = temp;
+		return true;
+		
     }
 
    /**Attempts to add a given word to the specified position of the WordGrid.
