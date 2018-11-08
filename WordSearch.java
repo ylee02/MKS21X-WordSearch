@@ -109,7 +109,7 @@ public class WordSearch{
 		}
 		char[][] temp = copyWord(data);
 		for (int i = row; i < word.length(); i++) {
-			if (word.charAt(i - row + 1) != data[i][col] && data[i][col] != '_') {
+			if (word.charAt(i - row) != data[i][col] && data[i][col] != '_') {
 				return false;
 			}
 			temp[i][col] = word.charAt(i - row);
