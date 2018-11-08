@@ -114,7 +114,7 @@ public class WordSearch{
 			}
 			temp[i][col] = word.charAt(i - row);
 		}
-		temp = data;
+		data = temp;
 		return true;
     }
 }
