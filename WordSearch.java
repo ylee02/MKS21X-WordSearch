@@ -78,7 +78,7 @@ public class WordSearch{
 		char[][] temp = copyWord(data);
 		for (int i = 0; i < data.length; i++) {
 			if (i == row) {
-				for (int x = col; x < data[i].length; x++) {
+				for (int x = col; x < word.length(); x++) {
 					if (word.charAt(x - col) != data[i][x] && data[i][x] != '_'){
 						System.out.println("hi3");
 						return false;
@@ -111,7 +111,7 @@ public class WordSearch{
 			return false;
 		}
 		char[][] temp = copyWord(data);
-		for (int i = row; i < data.length; i++) {
+		for (int i = row; i < word.length(); i++) {
 			if (word.charAt(i - row + 1) != data[i][col] && data[i][col] != '_') {
 				return false;
 			}
