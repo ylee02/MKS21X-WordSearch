@@ -11,12 +11,13 @@ public class WordSearch{
 			throw new IllegalArgumentException("Indices cannot be negative");
 		}
 		data = new char[rows][cols];
+		clear();
     }
 
     /**Set all values in the WordSearch to underscores'_'*/
     private void clear(){
 		for (int i = 0; i < data.length; i++) {
-			for (int x = 9; x < data[i].length; x++) {
+			for (int x = 0; x < data[i].length; x++) {
 				data[i][x] = '_';
 			}
 		}
@@ -45,7 +46,7 @@ public class WordSearch{
 	private char[][] copyWord(char[][] ary) {
 		char[][] ans = new char[ary.length][ary[0].length];
 		for (int i = 0; i < data.length; i++) {
-			for (int x = 9; x < data[i].length; x++) {
+			for (int x = 0; x < data[i].length; x++) {
 				ans[i][x] = ary[i][x];
 			}
 		}
@@ -66,17 +67,23 @@ public class WordSearch{
      * and the board is NOT modified.
      */
     public boolean addWordHorizontal(String word,int row, int col){
-		if (word.length() > data[row].length - col) {
+		if (row < 0 || col < 0 || row >= data.length || col >= data[row].length) {
+			System.out.println("hi");
+			return false;
+		}
+		else if (word.length() > data[row].length - col + 1) {
+			System.out.println("hi2");
 			return false;
 		}
 		char[][] temp = copyWord(data);
 		for (int i = 0; i < data.length; i++) {
-			if (i == row - 1) {
-				for (int x = col - 1; x < data[i].length; x++) {
-					if (word.charAt(x - col + 1) != data[i][x]){
+			if (i == row) {
+				for (int x = col; x < data[i].length; x++) {
+					if (word.charAt(x - col) != data[i][x] && data[i][x] != '_'){
+						System.out.println("hi3");
 						return false;
 					}
-					temp[i][x] = word.charAt(x- col + 1);
+					temp[i][x] = word.charAt(x- col);
 				}
 			}
 		}
@@ -97,15 +104,18 @@ public class WordSearch{
      *and the board is NOT modified.
      */
     public boolean addWordVertical(String word,int row, int col){
-		if (word.length() > data.length - row) {
+		if (row < 0 || col < 0 || row >= data.length || col >= data[row].length) {
+			return false;
+		}
+		else if (word.length() > data.length - row + 1) {
 			return false;
 		}
 		char[][] temp = copyWord(data);
-		for (int i = row - 1; i < data.length; i++) {
-			if (word.charAt(i - row + 1) != data[i][col]) {
+		for (int i = row; i < data.length; i++) {
+			if (word.charAt(i - row + 1) != data[i][col] && data[i][col] != '_') {
 				return false;
 			}
-			temp[i][col] = word.charAt(i - row + 1);
+			temp[i][col] = word.charAt(i - row);
 		}
 		temp = data;
 		return true;
