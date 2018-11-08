@@ -68,11 +68,9 @@ public class WordSearch{
      */
     public boolean addWordHorizontal(String word,int row, int col){
 		if (row < 0 || col < 0 || row >= data.length || col >= data[row].length) {
-			System.out.println("hi");
 			return false;
 		}
 		else if (word.length() > data[row].length - col + 1) {
-			System.out.println("hi2");
 			return false;
 		}
 		char[][] temp = copyWord(data);
@@ -80,7 +78,6 @@ public class WordSearch{
 			if (i == row) {
 				for (int x = col; x < word.length(); x++) {
 					if (word.charAt(x - col) != data[i][x] && data[i][x] != '_'){
-						System.out.println("hi3");
 						return false;
 					}
 					temp[i][x] = word.charAt(x- col);
