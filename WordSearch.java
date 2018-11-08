@@ -92,5 +92,17 @@ public class WordSearch{
      *and the board is NOT modified.
      */
     public boolean addWordVertical(String word,int row, int col){
+		if (word.length() > data.length - row) {
+			return false;
+		}
+		char[][] temp = copyWord(data);
+		for (int i = row - 1; i < data.length; i++) {
+			if (word.charAt(i - row + 1) != data[i][col]) {
+				return false;
+			}
+			temp[i][col] = word.charAt(i - row + 1);
+		}
+		temp = data;
+		return true;
     }
 }
