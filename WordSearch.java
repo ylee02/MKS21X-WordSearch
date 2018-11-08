@@ -7,6 +7,9 @@ public class WordSearch{
      *@param col is the starting width of the WordSearch
      */
     public WordSearch(int rows,int cols){
+		if (rows <= 0 || cols <= 0) {
+			throw new IllegalArgumentException("Indices cannot be negative");
+		}
 		data = new char[rows][cols];
     }
 
@@ -24,17 +27,19 @@ public class WordSearch{
      *separated by newlines.
      */
     public String toString(){
+		String ans = "";
 		for (int i = 0; i < data.length; i++) {
 			for (int x = 0; x < data[i].length; x++) {
 				if (x == data[i].length - 1) {
-					System.out.print(data[i][x] + "");
+					ans += data[i][x];
 				}
 				else {
-					System.out.print(data[i][x] + ", ");
+					ans += data[i][x] + " ";
 				}
 			}
-			System.out.print("\n");
+			ans += "\n";
 		}	
+		return ans;
     }
 	
 	private char[][] copyWord(char[][] ary) {
