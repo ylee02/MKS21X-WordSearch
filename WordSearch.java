@@ -67,7 +67,7 @@ public class WordSearch{
      * and the board is NOT modified.
      */
     public boolean addWordHorizontal(String word,int row, int col){
-		if (row < 0 || col < 0 || row >= data.length || col+word.length() >= data[row].length + 1) {
+		if (row < 0 || col < 0 || row >= data.length || col+word.length() > data[row].length) {
 			return false;
 		}
 		else if (word.length() > data[row].length - col + 1) {
@@ -97,7 +97,7 @@ public class WordSearch{
      *and the board is NOT modified.
      */
     public boolean addWordVertical(String word,int row, int col){
-		if (row < 0 || col < 0 || row+word.length() >= data.length || col >= data[row].length) {
+		if (row < 0 || col < 0 || row+word.length() > data.length || col >= data[row].length) {
 			return false;
 		}
 		else if (word.length() > data.length - row + 1) {
@@ -115,7 +115,7 @@ public class WordSearch{
     }
 	
 	public boolean addWordDiagonal(String word, int row, int col) {
-		if (row < 0 || col < 0 || row+word.length() >= data.length || col+word.length() >= data[row].length) {
+		if (row < 0 || col < 0 || row+word.length() > data.length || col+word.length() > data[row].length) {
 			return false;
 		}
 		else if (word.length() > data.length - row + 1 || word.length() > data[row].length - col + 1) {
@@ -123,10 +123,14 @@ public class WordSearch{
 		}
 		char[][] temp = copyWord(data);
 		for (int i = 0; i < word.length(); i++) {
+			if (word.charAt(i) != data[row][col] && data[row][col] != '_') {
+				return false;
+			}
 			temp[row][col] = word.charAt(i);
 			row++;
 			col++;
 		}
 		data = temp;
 		return true;
+	}
 }
