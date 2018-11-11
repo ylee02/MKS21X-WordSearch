@@ -1,18 +1,31 @@
+import java.util.*; 
+import java.io.*;
+
 public class WordSearch{
     private char[][]data;
-
+	private int seed;
+	private Random randgen;
+	private ArrayList<String> wordsToAdd;
+	private ArrayList<String> wordsAdded;
     /**Initialize the grid to the size specified 
      *and fill all of the positions with '_'
      *@param row is the starting height of the WordSearch
      *@param col is the starting width of the WordSearch
      */
-    public WordSearch(int rows,int cols){
+	
+    /*public WordSearch(int rows,int cols){
 		if (rows <= 0 || cols <= 0) {
 			throw new IllegalArgumentException("Indices cannot be negative");
 		}
 		data = new char[rows][cols];
 		clear();
     }
+	*/
+	public WordSearch(int rows, int cols, String fileName) {
+	}
+	
+	public WordSearch( int rows, int cols, String fileName, int randSeed) {
+	}
 
     /**Set all values in the WordSearch to underscores'_'*/
     private void clear(){
@@ -43,7 +56,7 @@ public class WordSearch{
 		return ans;
     }
 	
-	private char[][] copyWord(char[][] ary) {
+	/*private char[][] copyWord(char[][] ary) {
 		char[][] ans = new char[ary.length][ary[0].length];
 		for (int i = 0; i < data.length; i++) {
 			for (int x = 0; x < data[i].length; x++) {
@@ -52,6 +65,7 @@ public class WordSearch{
 		}
 		return ans;
 	}
+	*/
 	
 
 
@@ -66,7 +80,7 @@ public class WordSearch{
      * or there are overlapping letters that do not match, then false is returned 
      * and the board is NOT modified.
      */
-    public boolean addWordHorizontal(String word,int row, int col){
+   /* public boolean addWordHorizontal(String word,int row, int col){
 		if (row < 0 || col < 0 || row >= data.length || col+word.length() > data[row].length) {
 			return false;
 		}
@@ -84,7 +98,7 @@ public class WordSearch{
 		return true;
 		
     }
-
+*/
    /**Attempts to add a given word to the specified position of the WordGrid.
      *The word is added from top to bottom, must fit on the WordGrid, and must
      *have a corresponding letter to match any letters that it overlaps.
@@ -96,7 +110,7 @@ public class WordSearch{
      *or there are overlapping letters that do not match, then false is returned.
      *and the board is NOT modified.
      */
-    public boolean addWordVertical(String word,int row, int col){
+    /*public boolean addWordVertical(String word,int row, int col){
 		if (row < 0 || col < 0 || row+word.length() > data.length || col >= data[row].length) {
 			return false;
 		}
@@ -134,3 +148,4 @@ public class WordSearch{
 		return true;
 	}
 }
+*/
