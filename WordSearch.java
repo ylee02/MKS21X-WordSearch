@@ -123,7 +123,21 @@ public class WordSearch{
      */
     private boolean addWord(String word,int row, int col, int rowIncrement, int colIncrement){
 		char[][] ans = copyWord(data);
-		
+		if (rowIncrement == 0 && colIncrement == 0) {
+			return false;
+		}
+		if (colIncremenet == 1 && data.length - row < word.length()) {
+			return false;
+		}
+		if (colIncremenet == -1 && row < word.length() - 1) {
+			return false;
+		}
+		if (rowIncremenet == 1 && data[row].length - col < word.length()) {
+			return false;
+		}
+		if (rowincremenet == -1 && col < word.length() - 1) {
+			return false;
+		}
     }
 	
 
