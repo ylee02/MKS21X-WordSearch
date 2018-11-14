@@ -82,10 +82,17 @@ public class WordSearch{
 					ans += data[i][x] + " ";
 				}
 			}
-			ans += "|";
-			ans += "\n";
+			ans += "|\n";
 		}	
-		return ans;
+		ans +=  "Words:";
+		for (int i = 0; i < wordsAdded.size(); i++) {
+			if (i != words.Added.size() - 1) {
+				ans += wordsAdded.get(i) + ", ";
+			}
+			else {
+				ans += words.Added.get(i);
+			}
+		return ans + " (seed: " + seed + ")";
     }
 	
 
