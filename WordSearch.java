@@ -1,4 +1,4 @@
-import java.util.*; 
+import java.util.*;
 import java.io.*;
 
 public class WordSearch{
@@ -14,14 +14,14 @@ public class WordSearch{
 		data = new char[rows][cols];
 		clear();
     }
-	
+
 
     /*[rowIncrement,colIncrement] examples:
      *[-1,1] would add up and the right because (row -1 each time, col + 1 each time)
      *[ 1,0] would add downwards because (row+1), with no col change
      *[ 0,-1] would add towards the left because (col - 1), with no row change
      */
-	
+
 	public WordSearch(int rows, int cols, String fileName) {
 		if (rows <= 0 || cols <= 0) {
 			throw new IllegalArgumentException("Nonpositive integers are not allowed")
@@ -45,11 +45,11 @@ public class WordSearch{
 		}
 		addAllWords();
 	}
-			
-		
-		
+
+
+
 	}
-	
+
 	public WordSearch( int rows, int cols, String fileName, int randSeed) {
 		if (rows <= 0 || cols <= 0) {
 			throw new IllegalArgumentException("Nonpositive integers are not allowed")
@@ -95,7 +95,7 @@ public class WordSearch{
 				}
 			}
 			ans += "|\n";
-		}	
+		}
 		ans +=  "Words:";
 		for (int i = 0; i < wordsAdded.size(); i++) {
 			if (i != words.Added.size() - 1) {
@@ -106,9 +106,9 @@ public class WordSearch{
 			}
 		return ans + " (seed: " + seed + ")";
     }
-	
 
-	
+
+
 	private static char[][] copyWord(char[][] ary) {
 		char[][] ans = new char[ary.length][ary[0].length];
 		for (int i = 0; i < data.length; i++) {
@@ -118,10 +118,10 @@ public class WordSearch{
 		}
 		return ans;
 	}
-	
+
 
 	 /**Attempts to add a given word to the specified position of the WordGrid.
-     *The word is added in the direction rowIncrement,colIncrement 
+     *The word is added in the direction rowIncrement,colIncrement
      *Words must have a corresponding letter to match any letters that it overlaps.
      *
      *@param word is any text to be added to the word grid.
@@ -129,25 +129,13 @@ public class WordSearch{
      *@param col is the horizontal location of where you want the word to start.
      *@param rowIncrement is -1,0, or 1 and represents the displacement of each letter in the row direction
      *@param colIncrement is -1,0, or 1 and represents the displacement of each letter in the col direction
-     *@return true when: the word is added successfully. 
+     *@return true when: the word is added successfully.
      *        false when: the word doesn't fit, OR  rowchange and colchange are both 0,
      *        OR there are overlapping letters that do not match
      */
     private boolean addWord(String word,int row, int col, int rowIncrement, int colIncrement){
 		char[][] ans = copyWord(data);
-		if (rowIncrement == 0 && colIncrement == 0) {
-			return false;
-		}
-		if (colIncremenet == 1 && data.length - row < word.length()) {
-			return false;
-		}
-		if (colIncremenet == -1 && row < word.length() - 1) {
-			return false;
-		}
-		if (rowIncremenet == 1 && data[row].length - col < word.length()) {
-			return false;
-		}
-		if (rowincremenet == -1 && col < word.length() - 1) {
+		if ((rowIncrement == 0 && colIncrement == 0) || (colIncremenet == 1 && data.length - row < word.length()) || (colIncremenet == -1 && row < word.length() - 1) || (rowIncremenet == 1 && data[row].length - col < word.length()) || (rowincremenet == -1 && col < word.length() - 1))  {
 			return false;
 		}
 		for (int i = 0; i < word.length(); i++) {
@@ -158,9 +146,48 @@ public class WordSearch{
 		}
 		data = temp;
 		return true;
-			
+
     }
-	
+
+    private ArrayList<Integer> finder(boolean row) {
+
+      if (row) {
+        List<Integer> ans = new ArrayList<Integer>();
+        for (int i = 0; i < data.length; i++) {
+          int[i] = i;
+        }
+      }
+      else {
+        int[] ans = new int[data[0].length];
+      }
+
+      return ans;
+    }
+
+    private boolean addAllWords() {
+      boolean success = true;
+      String randWord;
+      int randcoli;
+      int randrowi;
+      while (wordsToAdd.length > 0) {
+        if (success) {
+          randWord = addWord(wordsToAdd.get(random.nextInt(wordsToAdd.length + 1)));
+          randcoli = random.nextInt(3) - 1;
+          randrowi = random.nextInt(3) - 1;
+          while (randcoli == 0 && randrowi == 0) {
+            randrowi = random.nextInt(3) - 1;
+            randcoli = random.nextInt(3) - 1;
+          }
+          success = false;
+        }
+        if (randWord, random.nextInt(data.length), random.nextInt(data[0].length, randrowi, randcoli) ) {
+          wordsToAdd.remove(randWord);
+          success = true;
+        }
+      }
+
+    }
+
 
 
 
@@ -180,10 +207,10 @@ public class WordSearch{
 			}
 		data = temp;
 		return true;
-		
+
     }
 */
- 
+
     /*public boolean addWordVertical(String word,int row, int col){
 		if (row < 0 || col < 0 || row+word.length() > data.length || col >= data[row].length) {
 			return false;
@@ -201,7 +228,7 @@ public class WordSearch{
 		data = temp;
 		return true;
     }
-	
+
 	public boolean addWordDiagonal(String word, int row, int col) {
 		if (row < 0 || col < 0 || row+word.length() > data.length || col+word.length() > data[row].length) {
 			return false;
