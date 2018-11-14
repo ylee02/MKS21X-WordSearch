@@ -31,11 +31,17 @@ public class WordSearch{
 		data = new char[rows][cols];
 		clear();
 		randgen = new Random();
-		File fil = new File(fileName);
-		Scanner file = new Scanner(fil);
-		while (file.hasNext()){
-			String temp = file.next();
-			wordsToAdd.add(temp.toUpperCase());
+		try {
+			File fil = new File(fileName);
+			Scanner file = new Scanner(fil);
+			while (file.hasNext()){
+				String temp = file.next();
+				wordsToAdd.add(temp.toUpperCase());
+			}
+		}
+		catch (FileNotFoundException e){
+			System.out.println("Error: File not found");
+			e.printStackTrace();
 		}
 		addAllWords();
 	}
@@ -53,11 +59,17 @@ public class WordSearch{
 		data = new char[rows][cols];
 		clear();
 		randgen = new Random(randSeed);
-		File fil = new File(fileName);
-		Scanner file = new Scanner(fil);
-		while (file.hasNext()){
-			String temp = file.next();
-			wordsToAdd.add(temp.toUpperCase());
+		try{
+			File fil = new File(fileName);
+			Scanner file = new Scanner(fil);
+			while (file.hasNext()){
+				String temp = file.next();
+				wordsToAdd.add(temp.toUpperCase());
+			}
+		}
+		catch (FileNotFoundException e){
+			System.out.println("Error: File not found");
+			e.printStackTrace();
 		}
 		addAllWords();
 	}
@@ -138,6 +150,15 @@ public class WordSearch{
 		if (rowincremenet == -1 && col < word.length() - 1) {
 			return false;
 		}
+		for (int i = 0; i < word.length(); i++) {
+			if (! (data[row + rowIncremenet * i][col + colIncrement * i] == '_' || data[row + rowIncremenet * i][col + colIncrement * i] == word.charAt(i))) {
+				return false;
+			}
+			temp[row + rowIncremenet * i][col + colIncrement * i] = word.charAt(i);
+		}
+		data = temp;
+		return true;
+			
     }
 	
 
