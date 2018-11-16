@@ -33,8 +33,7 @@ public class WordSearch{
 			File fil = new File(fileName);
 			Scanner in = new Scanner(fil);
 			while (in.hasNext()){
-				String temp = in.next();
-				wordsToAdd.add(temp.toUpperCase());
+				wordsToAdd.add(in.next().toUpperCase());
 			}
 		}
 		catch (FileNotFoundException e){
@@ -49,7 +48,7 @@ public class WordSearch{
 
 	}
 
-	public WordSearch( int rows, int cols, String fileName, int randSeed) {
+	public WordSearch( int rows, int cols, String fileName, int randSeed, boolean ans) {
 		if (rows <= 0 || cols <= 0) {
 			throw new IllegalArgumentException("Nonpositive integers are not allowed")
 		}
@@ -60,8 +59,7 @@ public class WordSearch{
 			File fil = new File(fileName);
 			Scanner in = new Scanner(fil);
 			while (in.hasNext()){
-				String temp = in.next();
-				wordsToAdd.add(temp.toUpperCase());
+				wordsToAdd.add(in.next().toUpperCase());
 			}
 		}
 		catch (FileNotFoundException e){
