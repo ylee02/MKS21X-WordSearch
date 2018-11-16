@@ -187,24 +187,20 @@ public class WordSearch{
 			colI = Random.nextInt(3) - 1;
 			rowI = Random.nextInt(3) - 1;
 		}
+		int row = Math.abs(Random.nextInt(data.length));
+		int col = Math.abs(Random.nextInt(data[0]));
 			
 		while (wordsToAdd.size() > 0) {
 			boolean succ = false;
 			ary = {0,0,0,0,1,0,0,0,0};
-			
-			
-			
-			
-			
-			
 			while (! succ && ! allOne(ary2)) { 
 			
 			
-				int row = Math.abs(Random.nextInt(data.length));
-				int col = Math.abs(Random.nextInt(data[0]));
+				row = Math.abs(Random.nextInt(data.length));
+				col = Math.abs(Random.nextInt(data[0]));
 				while (ary2[row][col] == 1) {
-					int row = Math.abs(Random.nextInt(data.length));
-					int col = Math.abs(Random.nextInt(data[0]));
+					row = Math.abs(Random.nextInt(data.length));
+					col = Math.abs(Random.nextInt(data[0]));
 				}
 				
 				
@@ -214,8 +210,8 @@ public class WordSearch{
 						ary2[row][col] = 1;
 						
 						
-						int rowI = Random.nextInt(3) - 1;
-						int colI = Random.nextInt(3) - 1;
+						rowI = Random.nextInt(3) - 1;
+						colI = Random.nextInt(3) - 1;
 						while (rowI == 0 && colI == 0 || ary[rowI * 3 + colI + 4] == 1) {
 							colI = Random.nextInt(3) - 1;
 							rowI = Random.nextInt(3) - 1;
