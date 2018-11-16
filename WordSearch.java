@@ -42,7 +42,6 @@ public class WordSearch{
 			System.exit(1);
 		}
 		addAllWords();
-	}
 
 
 
@@ -100,6 +99,7 @@ public class WordSearch{
 			else {
 				ans += words.Added.get(i);
 			}
+		}
 		return ans + " (seed: " + seed + ")";
     }
 
@@ -132,7 +132,7 @@ public class WordSearch{
     private boolean addWord(String word,int row, int col, int rowIncrement, int colIncrement){
 		char[][] ans = copyWord(data);
 		if ((rowIncrement == 0 && colIncrement == 0) || (colIncremenet == 1 && data.length - row < word.length()) || (colIncremenet == -1 && row < word.length() - 1) || (rowIncremenet == 1 && data[row].length - col < word.length()) || (rowincremenet == -1 && col < word.length() - 1))  {
-			return false;
+			throw new IllegalArgumentException("Error: Invalid parameters")
 		}
 		for (int i = 0; i < word.length(); i++) {
 			if (! (data[row + rowIncremenet * i][col + colIncrement * i] == '_' || data[row + rowIncremenet * i][col + colIncrement * i] == word.charAt(i))) {
@@ -181,14 +181,14 @@ public class WordSearch{
     private boolean addAllWords() {
 		int[] ary = new int[9];
 		int[][] ary2 = new int[data.length][data[0].length];
-		int rowI = Random.nextInt(3) - 1;
-		int colI = Random.nextInt(3) - 1;
+		int rowI = Math.abs(randgen.nextInt() % 3) - 1;
+		int colI = Math.abs(randgen.nextInt() % 3) - 1;
 		while (rowI == 0 && colI == 0) {
-			colI = Random.nextInt(3) - 1;
-			rowI = Random.nextInt(3) - 1;
+			colI = randgen.nextInt(3) - 1;
+			rowI = randgen.nextInt(3) - 1;
 		}
-		int row = Math.abs(Random.nextInt(data.length));
-		int col = Math.abs(Random.nextInt(data[0]));
+		int row = Math.abs(randgen.nextInt() % data.length);
+		int col = Math.abs(randgen.nextInt() % data[0].length);
 			
 		while (wordsToAdd.size() > 0) {
 			boolean succ = false;
@@ -196,11 +196,11 @@ public class WordSearch{
 			while (! succ && ! allOne(ary2)) { 
 			
 			
-				row = Math.abs(Random.nextInt(data.length));
-				col = Math.abs(Random.nextInt(data[0]));
+				int row = Math.abs(randgen.nextInt() % data.length);
+				int col = Math.abs(randgen.nextInt() % data[0].length);
 				while (ary2[row][col] == 1) {
-					row = Math.abs(Random.nextInt(data.length));
-					col = Math.abs(Random.nextInt(data[0]));
+					int row = Math.abs(randgen.nextInt() % data.length);
+					int col = Math.abs(randgen.nextInt() % data[0].length);
 				}
 				
 				
@@ -210,14 +210,14 @@ public class WordSearch{
 						ary2[row][col] = 1;
 						
 						
-						rowI = Random.nextInt(3) - 1;
-						colI = Random.nextInt(3) - 1;
+						rowI = Math.abs(randgen.nextInt() % 3) - 1;
+						colI = Math.abs(randgen.nextInt() % 3) - 1;
 						while (rowI == 0 && colI == 0 || ary[rowI * 3 + colI + 4] == 1) {
-							colI = Random.nextInt(3) - 1;
-							rowI = Random.nextInt(3) - 1;
-							
-							
+							colI = Math.abs(randgen.nextInt() % 3) - 1;
+							rowI = Math.abs(randgen.nextInt() % 3) - 1;
 						}
+						
+						
 					}
 					else {
 						wordsAdded.add(wordsToAdd.get(0);
@@ -229,6 +229,16 @@ public class WordSearch{
 			
 			if (! succ) {
 				wordsToAdd.remove(0);
+			}
+		}
+	}
+	
+	private void randNum() {
+		for (int i = 0, i < data.length; i++) {
+			for (int x = 0; x < data[0].length; x++) {
+				if (data[i][x] == '_') {
+					data[i][j] = (char)(Math.abs(randgen.nextInt() % 26) + 'A').toUpperCase();
+				}
 			}
 		}
 	}
@@ -294,5 +304,6 @@ public class WordSearch{
 		data = temp;
 		return true;
 	}
+	*/
 }
-*/
+
