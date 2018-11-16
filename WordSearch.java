@@ -167,34 +167,61 @@ public class WordSearch{
 		}
 		return true;
 	}
+	
+	private boolean allOne(int[][] ary) {
+		for (int i = 0; i < ary[].length; i++) {
+			if (! allOne(ary[i]) {
+				return false;
+			}
+		}
+		return true;
+	}
 		
 	
     private boolean addAllWords() {
+		int[] ary = new int[9];
+		int[][] ary2 = new int[data.length][data[0].length];
 		while (wordsToAdd.size() > 0) {
 			boolean succ = false;
-			int[] ary = new int[9];
-			ary[4] = 1;
-			while (!succ) {
-				int rowI = Random.nextInt(3) - 1;
-				int colI = Random.nextInt(3) - 1;
-				while (rowI == 0 && colI == 0) {
-					colI = Random.nextInt(3) - 1;
-					rowI = Random.nextInt(3) - 1;
+			ary = {0,0,0,0,1,0,0,0,0};
+			int rowI = Random.nextInt(3) - 1;
+			int colI = Random.nextInt(3) - 1;
+			while (rowI == 0 && colI == 0) {
+				colI = Random.nextInt(3) - 1;
+				rowI = Random.nextInt(3) - 1;
+			}
+			while (! succ && ! allOne(ary2)) { 
+				int row = Math.abs(Random.nextInt(data.length));
+				int col = Math.abs(Random.nextInt(data[0]));
+				while (ary2[row][col] == 1) {
+					int row = Math.abs(Random.nextInt(data.length));
+					int col = Math.abs(Random.nextInt(data[0]));
 				}
-				while () { 
-					int row = Math.abs(randgen.nextInt(data.length));
-					int col = Math.abs(randgen.nextInt(data[0]));
-					while (! (allOne(ary) && wordsAdded.contains(wordsToAdd.get(0)))) {
-						if (! addWord(wordsToAdd.get(0), row, col, rowI, colI)) {
-							ary[(rowI * 3 + colI) + 4] == 1;
-						}
-						else {
-							wordsAdded.add(wordsToAdd.get(0);
-							wordsToAdd.remove(0);
-							succ = true;
+				while (! allOne(ary) && ! succ) {
+					if (! addWord(wordsToAdd.get(0), row, col, rowI, colI)) {
+						ary[(rowI * 3 + colI) + 4] == 1;
+						ary2[row][col] = 1;
+						int rowI = Random.nextInt(3) - 1;
+						int colI = Random.nextInt(3) - 1;
+						while (rowI == 0 && colI == 0 || ary[rowI * 3 + colI + 4] == 1) {
+							colI = Random.nextInt(3) - 1;
+							rowI = Random.nextInt(3) - 1;
 						}
 					}
-    }
+					else {
+						wordsAdded.add(wordsToAdd.get(0);
+						wordsToAdd.remove(0);
+						succ = true;
+					}
+				}
+			}
+			
+			if (! succ) {
+				wordsToAdd.remove(0);
+			}
+		}
+	}
+  
 
 
 
