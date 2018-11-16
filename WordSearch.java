@@ -7,7 +7,7 @@ public class WordSearch{
 	private Random randgen;
 	private ArrayList<String> wordsToAdd = new ArrayList<String>();
 	private ArrayList<String> wordsAdded = new ArrayList<String>();
-	
+
     /*public WordSearch(int rows,int cols){
 		if (rows <= 0 || cols <= 0) {
 			throw new IllegalArgumentException("Indices cannot be negative");
@@ -23,7 +23,7 @@ public class WordSearch{
      *[ 0,-1] would add towards the left because (col - 1), with no row change
      */
 
-	/*public WordSearch(int rows, int cols, String fileName) {
+	public WordSearch(int rows, int cols, String fileName) {
 		data = new char[rows][cols];
 		clear();
 		randgen = new Random();
@@ -44,11 +44,11 @@ public class WordSearch{
 
 
 	}
-*/	
+
 
 	public WordSearch( int rows, int cols, String fileName, int randSeed, String ans) {
 		if (rows <= 0 || cols <= 0) {
-			throw new IllegalArgumentException("Nonpositive integers are not allowed")
+			throw new IllegalArgumentException("Nonpositive integers are not allowed");
 		}
 		data = new char[rows][cols];
 		clear();
@@ -67,7 +67,7 @@ public class WordSearch{
 			System.exit(1);
 		}
 		addAllWords();
-		if (ans.toLowerCase().equals("key")) {
+		if (! ans.toLowerCase().equals("key")) {
 			randNum();
 		}
 	}
@@ -96,11 +96,11 @@ public class WordSearch{
 		}
 		ans +=  "Words:";
 		for (int i = 0; i < wordsAdded.size(); i++) {
-			if (i != words.Added.size() - 1) {
-				ans += wordsAdded.get(i) + ", ";
+			if (i != wordsAdded.size() - 1) {
+        ans += wordsAdded.get(i) + ", ";
 			}
 			else {
-				ans += words.Added.get(i);
+				ans += wordsAdded.get(i);
 			}
 		}
 		return ans + " (seed: " + seed + ")";
@@ -108,7 +108,7 @@ public class WordSearch{
 
 
 
-	private static char[][] copyWord(char[][] ary) {
+	private char[][] copyWord(char[][] ary) {
 		char[][] ans = new char[ary.length][ary[0].length];
 		for (int i = 0; i < data.length; i++) {
 			for (int x = 0; x < data[i].length; x++) {
@@ -134,16 +134,16 @@ public class WordSearch{
      */
     private boolean addWord(String word,int row, int col, int rowIncrement, int colIncrement){
 		char[][] ans = copyWord(data);
-		if ((rowIncrement == 0 && colIncrement == 0) || (colIncremenet == 1 && data.length - row < word.length()) || (colIncremenet == -1 && row < word.length() - 1) || (rowIncremenet == 1 && data[row].length - col < word.length()) || (rowincremenet == -1 && col < word.length() - 1))  {
-			throw new IllegalArgumentException("Error: Invalid parameters")
+		if ((rowIncrement == 0 && colIncrement == 0) || (colIncrement == 1 && data.length - row < word.length()) || (colIncrement == -1 && row < word.length() - 1) || (rowIncrement == 1 && data[row].length - col < word.length()) || (rowIncrement == -1 && col < word.length() - 1))  {
+			throw new IllegalArgumentException("Error: Invalid parameters");
 		}
 		for (int i = 0; i < word.length(); i++) {
-			if (! (data[row + rowIncremenet * i][col + colIncrement * i] == '_' || data[row + rowIncremenet * i][col + colIncrement * i] == word.charAt(i))) {
+			if (! (data[row + rowIncrement * i][col + colIncrement * i] == '_' || data[row + rowIncrement * i][col + colIncrement * i] == word.charAt(i))) {
 				return false;
 			}
-			temp[row + rowIncremenet * i][col + colIncrement * i] = word.charAt(i);
+			ans[row + rowIncrement * i][col + colIncrement * i] = word.charAt(i);
 		}
-		data = temp;
+		data = ans;
 		return true;
 
     }
@@ -170,17 +170,17 @@ public class WordSearch{
 		}
 		return true;
 	}
-	
+
 	private boolean allOne(int[][] ary) {
-		for (int i = 0; i < ary[].length; i++) {
-			if (! allOne(ary[i]) {
+		for (int i = 0; i < ary[0].length; i++) {
+			if (! allOne(ary[i])) {
 				return false;
 			}
 		}
 		return true;
 	}
-		
-	
+
+
     private boolean addAllWords() {
 		int[] ary = new int[9];
 		int[][] ary2 = new int[data.length][data[0].length];
@@ -192,65 +192,68 @@ public class WordSearch{
 		}
 		int row = Math.abs(randgen.nextInt() % data.length);
 		int col = Math.abs(randgen.nextInt() % data[0].length);
-			
+
 		while (wordsToAdd.size() > 0) {
 			boolean succ = false;
-			ary = {0,0,0,0,1,0,0,0,0};
-			while (! succ && ! allOne(ary2)) { 
-			
-			
-				int row = Math.abs(randgen.nextInt() % data.length);
-				int col = Math.abs(randgen.nextInt() % data[0].length);
+			ary = new int[9];
+      ary[4] = 1;
+      ary2 = new int[data.length][data[0].length];
+			while (! succ && ! allOne(ary2)) {
+
+
+				row = Math.abs(randgen.nextInt() % data.length);
+				col = Math.abs(randgen.nextInt() % data[0].length);
 				while (ary2[row][col] == 1) {
-					int row = Math.abs(randgen.nextInt() % data.length);
-					int col = Math.abs(randgen.nextInt() % data[0].length);
+			    row = Math.abs(randgen.nextInt() % data.length);
+					col = Math.abs(randgen.nextInt() % data[0].length);
 				}
-				
-				
+
+
 				while (! allOne(ary) && ! succ) {
 					if (! addWord(wordsToAdd.get(0), row, col, rowI, colI)) {
-						ary[(rowI * 3 + colI) + 4] == 1;
+						ary[(rowI * 3 + colI) + 4] = 1;
 						ary2[row][col] = 1;
-						
-						
+
+
 						rowI = Math.abs(randgen.nextInt() % 3) - 1;
 						colI = Math.abs(randgen.nextInt() % 3) - 1;
 						while (rowI == 0 && colI == 0 || ary[rowI * 3 + colI + 4] == 1) {
 							colI = Math.abs(randgen.nextInt() % 3) - 1;
 							rowI = Math.abs(randgen.nextInt() % 3) - 1;
 						}
-						
-						
+
+
 					}
 					else {
-						wordsAdded.add(wordsToAdd.get(0);
+						wordsAdded.add(wordsToAdd.get(0));
 						wordsToAdd.remove(0);
 						succ = true;
 					}
 				}
 			}
-			
+
 			if (! succ) {
 				wordsToAdd.remove(0);
 			}
 		}
+    return true;
 	}
-	
+
 	private void randNum() {
-		for (int i = 0, i < data.length; i++) {
+		for (int i = 0; i < data.length; i++) {
 			for (int x = 0; x < data[0].length; x++) {
 				if (data[i][x] == '_') {
-					data[i][j] = (char)(Math.abs(randgen.nextInt() % 26) + 'A').toUpperCase();
+					data[i][x] = (char)(Math.abs(randgen.nextInt() % 26) + 'A');
 				}
 			}
 		}
 	}
-	
-	private void instructions() {
+
+	private static void instructions() {
 		System.out.println("Please run the program with 3 to 5 valid inputs (number_of_rows, number_of_columns, file_name, seed (optional), key (optional; only given when seed is also given))");
 		System.exit(1);
 	}
-	
+
 	public static void main(String[] args) {
 		try {
 			if (args.length == 3) {
@@ -277,6 +280,7 @@ public class WordSearch{
 		} catch (NumberFormatException e) {
 			instructions();
 		}
+  }
 
 
 
@@ -340,4 +344,3 @@ public class WordSearch{
 	}
 	*/
 }
-
