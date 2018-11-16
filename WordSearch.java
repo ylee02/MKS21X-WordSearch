@@ -5,8 +5,8 @@ public class WordSearch{
     private char[][]data;
 	private int seed;
 	private Random randgen;
-	private ArrayList<String> wordsToAdd;
-	private ArrayList<String> wordsAdded;
+	private ArrayList<String> wordsToAdd = new ArrayList<String>();
+	private ArrayList<String> wordsAdded = new ArrayList<String>();
     /*public WordSearch(int rows,int cols){
 		if (rows <= 0 || cols <= 0) {
 			throw new IllegalArgumentException("Indices cannot be negative");
@@ -26,22 +26,21 @@ public class WordSearch{
 		if (rows <= 0 || cols <= 0) {
 			throw new IllegalArgumentException("Nonpositive integers are not allowed")
 		}
-		wordsToAdd = new ArrayList<String>();
-		wordsAdded = new ArrayList<String>();
 		data = new char[rows][cols];
 		clear();
 		randgen = new Random();
 		try {
 			File fil = new File(fileName);
-			Scanner file = new Scanner(fil);
-			while (file.hasNext()){
-				String temp = file.next();
+			Scanner in = new Scanner(fil);
+			while (in.hasNext()){
+				String temp = in.next();
 				wordsToAdd.add(temp.toUpperCase());
 			}
 		}
 		catch (FileNotFoundException e){
-			System.out.println("Error: File not found");
+			System.out.println("Error: File " + fileName + " not found");
 			e.printStackTrace();
+			System.exit(1);
 		}
 		addAllWords();
 	}
@@ -54,22 +53,21 @@ public class WordSearch{
 		if (rows <= 0 || cols <= 0) {
 			throw new IllegalArgumentException("Nonpositive integers are not allowed")
 		}
-		wordsToAdd = new ArrayList<String>();
-		wordsAdded = new ArrayList<String>();
 		data = new char[rows][cols];
 		clear();
 		randgen = new Random(randSeed);
 		try{
 			File fil = new File(fileName);
-			Scanner file = new Scanner(fil);
-			while (file.hasNext()){
-				String temp = file.next();
+			Scanner in = new Scanner(fil);
+			while (in.hasNext()){
+				String temp = in.next();
 				wordsToAdd.add(temp.toUpperCase());
 			}
 		}
 		catch (FileNotFoundException e){
-			System.out.println("Error: File not found");
+			System.out.println("Error: File " + fileName + " not found");
 			e.printStackTrace();
+			System.exit(1);
 		}
 		addAllWords();
 	}
