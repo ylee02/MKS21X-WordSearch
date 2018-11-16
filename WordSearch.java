@@ -181,31 +181,46 @@ public class WordSearch{
     private boolean addAllWords() {
 		int[] ary = new int[9];
 		int[][] ary2 = new int[data.length][data[0].length];
+		int rowI = Random.nextInt(3) - 1;
+		int colI = Random.nextInt(3) - 1;
+		while (rowI == 0 && colI == 0) {
+			colI = Random.nextInt(3) - 1;
+			rowI = Random.nextInt(3) - 1;
+		}
+			
 		while (wordsToAdd.size() > 0) {
 			boolean succ = false;
 			ary = {0,0,0,0,1,0,0,0,0};
-			int rowI = Random.nextInt(3) - 1;
-			int colI = Random.nextInt(3) - 1;
-			while (rowI == 0 && colI == 0) {
-				colI = Random.nextInt(3) - 1;
-				rowI = Random.nextInt(3) - 1;
-			}
+			
+			
+			
+			
+			
+			
 			while (! succ && ! allOne(ary2)) { 
+			
+			
 				int row = Math.abs(Random.nextInt(data.length));
 				int col = Math.abs(Random.nextInt(data[0]));
 				while (ary2[row][col] == 1) {
 					int row = Math.abs(Random.nextInt(data.length));
 					int col = Math.abs(Random.nextInt(data[0]));
 				}
+				
+				
 				while (! allOne(ary) && ! succ) {
 					if (! addWord(wordsToAdd.get(0), row, col, rowI, colI)) {
 						ary[(rowI * 3 + colI) + 4] == 1;
 						ary2[row][col] = 1;
+						
+						
 						int rowI = Random.nextInt(3) - 1;
 						int colI = Random.nextInt(3) - 1;
 						while (rowI == 0 && colI == 0 || ary[rowI * 3 + colI + 4] == 1) {
 							colI = Random.nextInt(3) - 1;
 							rowI = Random.nextInt(3) - 1;
+							
+							
 						}
 					}
 					else {
