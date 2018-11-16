@@ -145,8 +145,7 @@ public class WordSearch{
 
     }
 
-    private ArrayList<Integer> finder(boolean row) {
-
+   /* private ArrayList<Integer> finder(boolean row) {
       if (row) {
         List<Integer> ans = new ArrayList<Integer>();
         for (int i = 0; i < data.length; i++) {
@@ -159,29 +158,42 @@ public class WordSearch{
 
       return ans;
     }
-
+*/
+	private boolean allOne(int[] ary) {
+		for (int i = 0; i < ary.length; i++) {
+			if (ary[i] == 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+		
+	
     private boolean addAllWords() {
-      boolean success = true;
-      String randWord;
-      int randcoli;
-      int randrowi;
-      while (wordsToAdd.length > 0) {
-        if (success) {
-          randWord = addWord(wordsToAdd.get(random.nextInt(wordsToAdd.length + 1)));
-          randcoli = random.nextInt(3) - 1;
-          randrowi = random.nextInt(3) - 1;
-          while (randcoli == 0 && randrowi == 0) {
-            randrowi = random.nextInt(3) - 1;
-            randcoli = random.nextInt(3) - 1;
-          }
-          success = false;
-        }
-        if (randWord, random.nextInt(data.length), random.nextInt(data[0].length, randrowi, randcoli) ) {
-          wordsToAdd.remove(randWord);
-          success = true;
-        }
-      }
-
+		while (wordsToAdd.size() > 0) {
+			boolean succ = false;
+			int[] ary = new int[9];
+			ary[4] = 1;
+			while (!succ) {
+				int rowI = Random.nextInt(3) - 1;
+				int colI = Random.nextInt(3) - 1;
+				while (rowI == 0 && colI == 0) {
+					colI = Random.nextInt(3) - 1;
+					rowI = Random.nextInt(3) - 1;
+				}
+				while () { 
+					int row = Math.abs(randgen.nextInt(data.length));
+					int col = Math.abs(randgen.nextInt(data[0]));
+					while (! (allOne(ary) && wordsAdded.contains(wordsToAdd.get(0)))) {
+						if (! addWord(wordsToAdd.get(0), row, col, rowI, colI)) {
+							ary[(rowI * 3 + colI) + 4] == 1;
+						}
+						else {
+							wordsAdded.add(wordsToAdd.get(0);
+							wordsToAdd.remove(0);
+							succ = true;
+						}
+					}
     }
 
 
