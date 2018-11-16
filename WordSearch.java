@@ -7,6 +7,7 @@ public class WordSearch{
 	private Random randgen;
 	private ArrayList<String> wordsToAdd = new ArrayList<String>();
 	private ArrayList<String> wordsAdded = new ArrayList<String>();
+	
     /*public WordSearch(int rows,int cols){
 		if (rows <= 0 || cols <= 0) {
 			throw new IllegalArgumentException("Indices cannot be negative");
@@ -22,10 +23,7 @@ public class WordSearch{
      *[ 0,-1] would add towards the left because (col - 1), with no row change
      */
 
-	public WordSearch(int rows, int cols, String fileName) {
-		if (rows <= 0 || cols <= 0) {
-			throw new IllegalArgumentException("Nonpositive integers are not allowed")
-		}
+	/*public WordSearch(int rows, int cols, String fileName) {
 		data = new char[rows][cols];
 		clear();
 		randgen = new Random();
@@ -46,14 +44,16 @@ public class WordSearch{
 
 
 	}
+*/	
 
-	public WordSearch( int rows, int cols, String fileName, int randSeed, boolean ans) {
+	public WordSearch( int rows, int cols, String fileName, int randSeed, String ans) {
 		if (rows <= 0 || cols <= 0) {
 			throw new IllegalArgumentException("Nonpositive integers are not allowed")
 		}
 		data = new char[rows][cols];
 		clear();
-		randgen = new Random(randSeed);
+		seed = randSeed;
+		randgen = new Random(seed);
 		try{
 			File fil = new File(fileName);
 			Scanner in = new Scanner(fil);
@@ -67,6 +67,9 @@ public class WordSearch{
 			System.exit(1);
 		}
 		addAllWords();
+		if (ans.toLowerCase().equals("key")) {
+			randNum();
+		}
 	}
 
     /**Set all values in the WordSearch to underscores'_'*/
@@ -242,7 +245,38 @@ public class WordSearch{
 			}
 		}
 	}
-  
+	
+	private void instructions() {
+		System.out.println("Please run the program with 3 to 5 valid inputs (number_of_rows, number_of_columns, file_name, seed (optional), key (optional; only given when seed is also given))");
+		System.exit(1);
+	}
+	
+	public static void main(String[] args) {
+		try {
+			if (args.length == 3) {
+				if (Integer.parseInt(args[0]) <= 0 || Integer.parseInt(args[1]) <= 0) {
+					instructions();
+				}
+				WordSearch ans = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2]);
+				System.out.println(ans);
+			}
+			else if (args.length == 4) {
+				if (Integer.parseInt(args[0]) <= 0 || Integer.parseInt(args[1]) <= 0) {
+					instructions();
+				}
+				WordSearch ans = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]), "");
+				System.out.println(ans);
+			}
+			else if (args.length == 5) {
+				if (Integer.parseInt(args[0]) <= 0 || Integer.parseInt(args[1]) <= 0) {
+					instructions();
+				}
+				WordSearch ans = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]), args[4]);
+				System.out.println(ans);
+			}
+		} catch (NumberFormatException e) {
+			instructions();
+		}
 
 
 
