@@ -41,7 +41,6 @@ public class WordSearch{
 		}
 		catch (FileNotFoundException e){
 			System.out.println("Error: File " + fileName + " not found");
-			e.printStackTrace();
 			System.exit(1);
 		}
 		addAllWords();
@@ -73,7 +72,6 @@ public class WordSearch{
 		}
 		catch (FileNotFoundException e){
 			System.out.println("Error: File " + fileName + " not found");
-			e.printStackTrace();
 			System.exit(1);
 		}
 		addAllWords();
