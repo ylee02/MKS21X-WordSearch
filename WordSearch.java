@@ -25,7 +25,8 @@ public class WordSearch{
 
 	public WordSearch(int rows, int cols, String fileName) {
 		if (rows <= 0 || cols <= 0) {
-			throw new IllegalArgumentException("Nonpositive integers are not allowed");
+			System.out.println("Rows and columns cannot be set as nonpositive integers.")
+			System.exit(1);
 		}
 		data = new char[rows][cols];
 		clear();
@@ -52,7 +53,8 @@ public class WordSearch{
 
 	public WordSearch( int rows, int cols, String fileName, int randSeed, String ans) {
 		if (rows <= 0 || cols <= 0) {
-			throw new IllegalArgumentException("Nonpositive integers are not allowed");
+			System.out.println("Rows and columns cannot be set as nonpositive integers.")
+			System.exit(1);
 		}
 		data = new char[rows][cols];
 		clear();
