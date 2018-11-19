@@ -24,9 +24,13 @@ public class WordSearch{
      */
 
 	public WordSearch(int rows, int cols, String fileName) {
+		if (rows <= 0 || cols <= 0) {
+			throw new IllegalArgumentException("Nonpositive integers are not allowed");
+		}
 		data = new char[rows][cols];
 		clear();
-		randgen = new Random();
+		seed = (int)(Math.random() * 10000);
+		randgen = new Random(seed);
 		try {
 			File fil = new File(fileName);
 			Scanner in = new Scanner(fil);
@@ -40,7 +44,7 @@ public class WordSearch{
 			System.exit(1);
 		}
 		addAllWords();
-
+		randNum();
 
 
 	}
@@ -134,21 +138,21 @@ public class WordSearch{
      */
     private boolean addWord(String word,int row, int col, int rowIncrement, int colIncrement){
 		char[][] ans = copyWord(data);
-		if ((rowIncrement == 0 && colIncrement == 0) || (colIncrement == 1 && data.length - row < word.length()) || (colIncrement == -1 && row < word.length() - 1) || (rowIncrement == 1 && data[row].length - col < word.length()) || (rowIncrement == -1 && col < word.length() - 1))  {
-			throw new IllegalArgumentException("Error: Invalid parameters");
-		}
-		for (int i = 0; i < word.length(); i++) {
-			if (! (data[row + rowIncrement * i][col + colIncrement * i] == '_' || data[row + rowIncrement * i][col + colIncrement * i] == word.charAt(i))) {
-				return false;
+		try {
+			for (int i = 0; i < word.length(); i++) {
+				if (ans[row][col] != word.charAt(i) && ans[row][col] != '_') return false;
+				ans[row][col] = word.charAt(i);
+				row += rowIncrement;
+				col += colIncrement;
 			}
-			ans[row + rowIncrement * i][col + colIncrement * i] = word.charAt(i);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			return false;
 		}
 		data = ans;
 		return true;
-
     }
 
-   /* private ArrayList<Integer> finder(boolean row) {
+   /*private ArrayList<Integer> finder(boolean row) {
       if (row) {
         List<Integer> ans = new ArrayList<Integer>();
         for (int i = 0; i < data.length; i++) {
@@ -161,8 +165,9 @@ public class WordSearch{
 
       return ans;
     }
-*/
-	private boolean allOne(int[] ary) {
+	*/
+
+	 private boolean allOne(int[] ary) {
 		for (int i = 0; i < ary.length; i++) {
 			if (ary[i] == 0) {
 				return false;
@@ -170,6 +175,7 @@ public class WordSearch{
 		}
 		return true;
 	}
+	
 
 	private boolean allOne(int[][] ary) {
 		for (int i = 0; i < ary[0].length; i++) {
@@ -179,64 +185,37 @@ public class WordSearch{
 		}
 		return true;
 	}
+	
 
 
     private boolean addAllWords() {
-		int[] ary = new int[9];
-		int[][] ary2 = new int[data.length][data[0].length];
-		int rowI = Math.abs(randgen.nextInt() % 3) - 1;
-		int colI = Math.abs(randgen.nextInt() % 3) - 1;
-		while (rowI == 0 && colI == 0) {
-			colI = randgen.nextInt(3) - 1;
-			rowI = randgen.nextInt(3) - 1;
-		}
-		int row = Math.abs(randgen.nextInt() % data.length);
-		int col = Math.abs(randgen.nextInt() % data[0].length);
-
+		int c = 0; int word; int row; int col; int rowI; int colI; boolean succ = false;
 		while (wordsToAdd.size() > 0) {
-			boolean succ = false;
-			ary = new int[9];
-      ary[4] = 1;
-      ary2 = new int[data.length][data[0].length];
-			while (! succ && ! allOne(ary2)) {
-
-
+			word = Math.abs(randgen.nextInt() % wordsToAdd.size());
+			succ = false;
+			while (!succ && c < 150) {
+				rowI = Math.abs(randgen.nextInt() % 3) - 1;
+				colI = Math.abs(randgen.nextInt() % 3) - 1;
+				while ((colI == 0 && rowI == 0) && c < 150) {
+					c += 1;
+					rowI = Math.abs(randgen.nextInt() % 3) - 1;
+					colI = Math.abs(randgen.nextInt() % 3) - 1;
+				}
 				row = Math.abs(randgen.nextInt() % data.length);
 				col = Math.abs(randgen.nextInt() % data[0].length);
-				while (ary2[row][col] == 1) {
-			    row = Math.abs(randgen.nextInt() % data.length);
-					col = Math.abs(randgen.nextInt() % data[0].length);
+				if (addWord(wordsToAdd.get(word), row, col, rowI, colI)) {
+					wordsAdded.add(wordsToAdd.remove(word));
+					c = 0;
+					succ = true;
 				}
-
-
-				while (! allOne(ary) && ! succ) {
-					if (! addWord(wordsToAdd.get(0), row, col, rowI, colI)) {
-						ary[(rowI * 3 + colI) + 4] = 1;
-						ary2[row][col] = 1;
-
-
-						rowI = Math.abs(randgen.nextInt() % 3) - 1;
-						colI = Math.abs(randgen.nextInt() % 3) - 1;
-						while (rowI == 0 && colI == 0 || ary[rowI * 3 + colI + 4] == 1) {
-							colI = Math.abs(randgen.nextInt() % 3) - 1;
-							rowI = Math.abs(randgen.nextInt() % 3) - 1;
-						}
-
-
-					}
-					else {
-						wordsAdded.add(wordsToAdd.get(0));
-						wordsToAdd.remove(0);
-						succ = true;
-					}
-				}
+				c += 1;
 			}
-
 			if (! succ) {
-				wordsToAdd.remove(0);
+				wordsToAdd.remove(word);
+				c = 0;
 			}
 		}
-    return true;
+		return true;
 	}
 
 	private void randNum() {
