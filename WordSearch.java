@@ -253,7 +253,7 @@ public class WordSearch{
 				WordSearch ans = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]), args[4]);
 				System.out.println(ans);
 			}
-		} catch (NumberFormatException e) {
+		} catch (Exception e) {
 			instructions();
 		} 
   }
