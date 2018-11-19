@@ -57,6 +57,10 @@ public class WordSearch{
 		data = new char[rows][cols];
 		clear();
 		seed = randSeed;
+		if (seed > 10000 || seed < 0) {
+			System.out.println("Seed must be between 0 and 10000");
+			System.exit(1);
+		}
 		randgen = new Random(seed);
 		try{
 			File fil = new File(fileName);
@@ -258,7 +262,7 @@ public class WordSearch{
 			}
 		} catch (NumberFormatException e) {
 			instructions();
-		}
+		} 
   }
 
 
