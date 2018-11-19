@@ -171,7 +171,7 @@ public class WordSearch{
 
       return ans;
     }
-	*/
+	
 
 	 private boolean allOne(int[] ary) {
 		for (int i = 0; i < ary.length; i++) {
@@ -190,7 +190,7 @@ public class WordSearch{
 			}
 		}
 		return true;
-	}
+	} */
 	
 
 
@@ -202,7 +202,7 @@ public class WordSearch{
 			while (!succ && c < 1000) {
 				rowI = Math.abs(randgen.nextInt() % 3) - 1;
 				colI = Math.abs(randgen.nextInt() % 3) - 1;
-				while ((colI == 0 && rowI == 0) && c < 150) {
+				while ((colI == 0 && rowI == 0) && c < 1000) {
 					c += 1;
 					rowI = Math.abs(randgen.nextInt() % 3) - 1;
 					colI = Math.abs(randgen.nextInt() % 3) - 1;
