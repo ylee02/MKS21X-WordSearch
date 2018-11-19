@@ -25,7 +25,7 @@ public class WordSearch{
 
 	public WordSearch(int rows, int cols, String fileName) {
 		if (rows <= 0 || cols <= 0) {
-			System.out.println("Rows and columns cannot be set as nonpositive integers.")
+			System.out.println("Rows and columns cannot be set as nonpositive integers.");
 			System.exit(1);
 		}
 		data = new char[rows][cols];
@@ -53,7 +53,7 @@ public class WordSearch{
 
 	public WordSearch( int rows, int cols, String fileName, int randSeed, String ans) {
 		if (rows <= 0 || cols <= 0) {
-			System.out.println("Rows and columns cannot be set as nonpositive integers.")
+			System.out.println("Rows and columns cannot be set as nonpositive integers.");
 			System.exit(1);
 		}
 		data = new char[rows][cols];
@@ -199,7 +199,7 @@ public class WordSearch{
 		while (wordsToAdd.size() > 0) {
 			word = Math.abs(randgen.nextInt() % wordsToAdd.size());
 			succ = false;
-			while (!succ && c < 150) {
+			while (!succ && c < 1000) {
 				rowI = Math.abs(randgen.nextInt() % 3) - 1;
 				colI = Math.abs(randgen.nextInt() % 3) - 1;
 				while ((colI == 0 && rowI == 0) && c < 150) {
@@ -242,23 +242,14 @@ public class WordSearch{
 	public static void main(String[] args) {
 		try {
 			if (args.length == 3) {
-				if (Integer.parseInt(args[0]) <= 0 || Integer.parseInt(args[1]) <= 0) {
-					instructions();
-				}
 				WordSearch ans = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2]);
 				System.out.println(ans);
 			}
 			else if (args.length == 4) {
-				if (Integer.parseInt(args[0]) <= 0 || Integer.parseInt(args[1]) <= 0) {
-					instructions();
-				}
 				WordSearch ans = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]), "");
 				System.out.println(ans);
 			}
 			else if (args.length == 5) {
-				if (Integer.parseInt(args[0]) <= 0 || Integer.parseInt(args[1]) <= 0) {
-					instructions();
-				}
 				WordSearch ans = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]), args[4]);
 				System.out.println(ans);
 			}
